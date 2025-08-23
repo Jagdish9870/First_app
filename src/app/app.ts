@@ -10,4 +10,12 @@ import { RouterOutlet } from '@angular/router';
 export class App {
   protected readonly title = signal('First_app');
   property_binding=" designer is jack"
+
+  ngOnInit(){
+    this.changeProperty();
+  }
+
+  changeProperty(){
+    this.property_binding=" creater is jack"
+  }
 }
