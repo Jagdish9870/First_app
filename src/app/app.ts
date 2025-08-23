@@ -12,7 +12,7 @@ export class App {
   property_binding=" designer is jack"
 
   ngOnInit(){
-    this.changeProperty();
+   // this.changeProperty();
   }
 
   changeProperty(){
