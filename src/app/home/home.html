@@ -1,4 +1,8 @@
 <p>home </p>
 
 <div> standalone project</div>
-<a routerLink="/about"> go to about</a>
+<!-- <a routerLink="/about"> go to about</a> -->
+<!-- <a [routerLink]="['/','about']"> go to about</a>   same functionality as above -->
+<!-- <a (click)="navigate()"> go to about</a> -->
+
+<a [routerLink]="['/','about',1]"> go to about</a>

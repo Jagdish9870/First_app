@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component  } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -8,5 +8,10 @@ import { RouterLink } from '@angular/router';
   styleUrl: './home.scss'
 })
 export class Home {
+  // private router=inject(Router);
+
+  // navigate(){
+  //   this.router.navigate(['/about'])
+  // }
   
 }
