@@ -1,7 +1,9 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, inject, NgModule } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Courses } from '../courses/courses';
 import { Strings } from '../../enum/strings.enum';
+import {CourseService } from '../../services/course/course.service';
+import { Course } from '../../interfaces/course';
 
 @Component({
   selector: 'app-admin',
@@ -16,6 +18,7 @@ export class Admin {
   cover_file : any;
   showError=false;
   courses: any[]=[];
+  private courseService=inject(CourseService);
   onSubmit(form: NgForm){
     if(form.invalid || !this.cover){
       form.control.markAllAsTouched();
@@ -51,16 +54,25 @@ export class Admin {
     
     
   }
-  saveCourse(form: NgForm){
-    const formValue=form.value;
-    const data={
+  async saveCourse(form: NgForm){
+
+    try {
+      const formValue=form.value;
+    const data : Course={
       ...formValue,
       image: this.cover,
-      id: this.courses.length + 1,
+      // id: this.courses.length + 1,
     };
-    this.courses=[...this.courses,data];
-    this.setItem(this.courses);
+    await this.courseService.addCourse(data);
+    // this.courses=[...this.courses,data];
+    // this.setItem(this.courses);
     this.clearForm(form);
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+    
   }
 
 
@@ -70,14 +82,6 @@ export class Admin {
     
 
   }
-  deleteCourse(course: any){
-   this.courses= this.courses.filter(course_item=> course_item.id != course.id);
-   this.setItem(this.courses);
-  }
-  setItem(data:any){
-
-    localStorage.setItem(Strings.STORAGE_KEY, JSON.stringify(data));
-
-  }
-
+  
+  
 }

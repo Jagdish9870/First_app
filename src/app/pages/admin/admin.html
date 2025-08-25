@@ -4,7 +4,7 @@
     <form #courseForm="ngForm" (ngSubmit)="onSubmit(courseForm)">
       <div class="mb-3">
         <label
-          for="exampleFormControlInput1"
+          for="title"
           class="form-label">Title</label>
         <input type="text" class="form-control" placeholder="enter title" id="title"
           name="title"
@@ -43,7 +43,7 @@
         <label for="image">Choose an image : </label>
         <input type="file" id="image" name="image" accept="image/*" [multiple]="false" (change)="onFileSelected($event)" ngModel required >
     @if(cover){
-        <div class="img" align="right">
+        <div class="imageDiv" align="right">
             <img [src]="cover" alt="">
         </div>
     }  
@@ -60,5 +60,5 @@
     </form>
   </div>
 </div>
-        <app-courses [isAdmin]="true" is(del)="deleteCourse($event)"></app-courses>
+        <app-courses [isAdmin]="true" ></app-courses>
 

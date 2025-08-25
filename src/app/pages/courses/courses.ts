@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Strings } from '../../enum/strings.enum';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { CourseService } from '../../services/course/course.service';
+import { Course } from '../../interfaces/course';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
@@ -9,26 +11,32 @@ import { Strings } from '../../enum/strings.enum';
 })
 export class Courses {
 
-   @Input() isAdmin=false;
-   @Output() del=new EventEmitter();
-  courses: any[]=[];
+  @Input() isAdmin=false;
+  courses: Course[]=[];
+  coursesSub!: Subscription;
    
-
+ private courseService=inject(CourseService);
    deleteCourse(course:any){
-    this.del.emit(course);
+    this.courseService.deleteCourse(course);
 
 
    }
-   getCourses(){
-  const data=localStorage.getItem(Strings.STORAGE_KEY);
-    if(data)
-      {
-        this.courses=JSON.parse(data);
-      }
-
-    }
+   
     ngOnInit(){
-      this.getCourses();
+      this.courses=this.courseService.getCourses();
+      this.coursesSub=this.courseService.courses.subscribe({
+        next:(courses)=>{
+          this.courses=courses;
+        },error:(e)=>{
+          console.log(e);
+        }
+      });
+    }
+
+    ngOnDestroy(){
+      if(this.coursesSub){
+        this.coursesSub.unsubscribe();
+      }
     }
   }
 
