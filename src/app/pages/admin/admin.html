@@ -38,6 +38,7 @@
           </div>
           }
       </div>
+
       <div>
         <label for="image">Choose an image : </label>
         <input type="file" id="image" name="image" accept="image/*" [multiple]="false" (change)="onFileSelected($event)" ngModel required >
@@ -59,3 +60,5 @@
     </form>
   </div>
 </div>
+        <app-courses [isAdmin]="true" is(del)="deleteCourse($event)"></app-courses>
+
