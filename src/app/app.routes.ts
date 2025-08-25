@@ -14,7 +14,7 @@ export const routes: Routes = [
         
    },
    {
-    path: 'about/:id',
+    path: 'about',
     loadComponent:() => import('./about/about').then((c)=>c.About),
         
    },
