@@ -3,6 +3,7 @@ import { Courses } from '../courses/courses';
 import { Strings } from '../../enum/strings.enum';
 import { About } from "../about/about";
 import { HttpClient } from '@angular/common/http';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -32,12 +33,14 @@ ngOnInit(){
   this.fetchHttpData();
 }
 private http=inject(HttpClient)
-fetchHttpData(){
-this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe({
-  next: (posts)=>{
-    console.log(posts)
+async fetchHttpData(){
+// this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe({
+//   next: (posts)=>{
+//     console.log(posts)
     
-  }
-});
+//   }
+// });
+const post= await lastValueFrom(this.http.get('https://jsonplaceholder.typicode.com/posts'))
+console.log(post);
 }
 }
