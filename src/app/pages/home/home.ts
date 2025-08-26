@@ -1,7 +1,8 @@
-import { Component  } from '@angular/core';
+import { Component, inject  } from '@angular/core';
 import { Courses } from '../courses/courses';
 import { Strings } from '../../enum/strings.enum';
 import { About } from "../about/about";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -28,5 +29,15 @@ export class Home {
 // }
 ngOnInit(){
   // this.getCourses();
+  this.fetchHttpData();
+}
+private http=inject(HttpClient)
+fetchHttpData(){
+this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe({
+  next: (posts)=>{
+    console.log(posts)
+    
+  }
+});
 }
 }
